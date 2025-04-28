@@ -5,47 +5,18 @@ import { Input } from "@/components/ui/input"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import type {Product} from "@/components/product-grid";
-// async function getProduct(id:string): Promise<Product[]> {
-//
-//     const res = await fetch(`http://localhost:3000/api/product/${id}`, { cache: "no-store" })
-//
-//     if (!res.ok) {
-//
-//         throw new Error("Failed to fetch products")
-//     }
-//
-//     return res.json()
-// }
-export default function ProductPage({ params }: { params: { id: string } }) {
-    // const prod = await getProduct()
-    const product = {
-        id: params.id,
-        name: "PlayStation 5 Controller Skin",
-        price: 192.0,
-        rating: 5,
-        reviews: 150,
-        inStock: true,
-        description:
-            "PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive.",
-        colors: [
-            { name: "Blue", value: "#0000FF" },
-            { name: "Red", value: "#FF0000" },
-        ],
-        sizes: [
-            { name: "XS", selected: false },
-            { name: "S", selected: false },
-            { name: "M", selected: true },
-            { name: "L", selected: false },
-            { name: "XL", selected: false },
-        ],
-        images: [
-            "/placeholder.svg?height=80&width=80",
-            "/placeholder.svg?height=80&width=80",
-            "/placeholder.svg?height=80&width=80",
-            "/placeholder.svg?height=80&width=80",
-        ],
-        mainImage: "/placeholder.svg?height=500&width=500",
+async function getProduct(id: string): Promise<Product> {
+    const res = await fetch(`http://localhost:3000/api/product/${id}`, { cache: "no-store" });
+
+    if (!res.ok) {
+        throw new Error("Failed to fetch product");
     }
+
+    return res.json();
+}
+
+export default async function ProductPage({ params }: { params: { id: string } }) {
+    const product = await getProduct(params.id);
 
     return (
         <div className="flex flex-col min-h-screen">
