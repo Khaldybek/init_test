@@ -1,0 +1,106 @@
+export async function GET(request: Request, { params }: { params: { id: string } }) {
+    const products = [
+        {
+            id: 1,
+            name: "Breed Dry Dog Food",
+            actualPrice: 100,
+            discountPrice: null,
+            image: "/dog.png?height=200&width=200",
+            rating: 4.5,
+            reviews: 38,
+            category: "Pet Supplies",
+            colors: [],
+        },
+        {
+            id: 2,
+            name: "CANON EOS DSLR Camera",
+            actualPrice: 350,
+            discountPrice: null,
+            image: "/canon.png?height=200&width=200",
+            rating: 4.7,
+            reviews: 96,
+            category: "Electronics",
+            colors: [],
+        },
+        {
+            id: 3,
+            name: "ASUS FHD Gaming Laptop",
+            actualPrice: 700,
+            discountPrice: null,
+            image: "/asus.png?height=200&width=200",
+            rating: 4.8,
+            reviews: 325,
+            category: "Electronics",
+            colors: [],
+        },
+        {
+            id: 4,
+            name: "Curology Product Set",
+            actualPrice: 500,
+            discountPrice: null,
+            image: "/baleler.png?height=200&width=200",
+            rating: 4.6,
+            reviews: 145,
+            category: "Beauty",
+            colors: [],
+        },
+        {
+            id: 5,
+            name: "Kids Electric Car",
+            actualPrice: 950,
+            discountPrice: 850,
+            image: "/car.png?height=200&width=200",
+            rating: 4.9,
+            reviews: 65,
+            category: "Toys",
+            colors: ["#FF0000", "#000000"],
+        },
+        {
+            id: 6,
+            name: "Jr. Zoom Soccer Cleats",
+            actualPrice: 150,
+            discountPrice: null,
+            image: "/asus.png?height=200&width=200",
+            rating: 4.5,
+            reviews: 35,
+            category: "Sports",
+            colors: ["#FFFF00", "#00FF00"],
+        },
+        {
+            id: 7,
+            name: "GP11 Shooter USB Gamepad",
+            actualPrice: 650,
+            discountPrice: 550,
+            image: "/asus.png?height=200&width=200",
+            rating: 4.8,
+            reviews: 55,
+            category: "Electronics",
+            colors: ["#000000", "#FF0000"],
+        },
+        {
+            id: 8,
+            name: "Quilted Satin Jacket",
+            actualPrice: 650,
+            discountPrice: null,
+            image: "/asus.png?height=200&width=200",
+            rating: 4.7,
+            reviews: 55,
+            category: "Fashion",
+            colors: ["#006400", "#8B0000"],
+        },
+    ];
+
+    const product = products.find((product) => product.id === parseInt(params.id));
+
+    if (!product) {
+        return new Response(JSON.stringify({ error: "Product not found" }), {
+            status: 404,
+            headers: { "Content-Type": "application/json" },
+        });
+    }
+
+    return new Response(JSON.stringify(product), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+    });
+}
